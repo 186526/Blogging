@@ -15,11 +15,17 @@ async function init_post_container() {
         post.preview = {
           response: content,
         };
-        post.preview.mdcontent = marked(content);
-        return marked(content);
+        post.preview.mdcontent = markdownrender(content);
+        return markdownrender(content);
       })
       .then((content) => {
         document.getElementsByClassName("none")[0].innerHTML = content;
+        imgs = document
+          .getElementsByClassName("none")[0]
+          .getElementsByTagName("img");
+        for (var i = 0; i < imgs.length; i++) {
+          imgs[i].src = "";
+        }
       })
       .then(function () {
         post.preview.title = document

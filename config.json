@@ -6,7 +6,7 @@
     },
     "theme_config": {
         "author": "186526",
-        "avatar": "https://cdn.jsdelivr.net/gh/186526/jsdelivr@1.1.0/avatar.jpg",
+        "avatar": "https://cdn.jsdelivr.net/gh/186526/jsdelivr@1.1.1/avatar.jpg",
         "introduction": "啥都不会的屑"
     },
     "post": [
@@ -37,5 +37,16 @@
                 }
             }
         ]
-    }
+    },
+    "plugins": [
+        {
+            "name":"Blogging_render_engine_marked",
+            "id":"render-engine-marked",
+            "depend": [
+                "https://cdn.jsdelivr.net/npm/marked@1.1.1/marked.min.js"
+            ],
+            "script": "https://cdn.jsdelivr.net/gh/186526/jsdelivr@1.1.1/render-engine-marked.js",
+            "loadtime": "init"
+        }
+    ]
 }

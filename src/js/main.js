@@ -4,6 +4,9 @@
  * Author: 186526
  * Build with Love & bug
  */
+function blogging_info(t) {
+  console.log("%c Blogging %c "+t+" %c", "background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px; color:#fff", "background:#41b883 ; padding: 1px; border-radius: 0 3px 3px 0; color: #fff" ,"background: transparent");
+}
 function getpar(r) {
   for (
     var n = window.location.search.substring(1).split("&"), t = 0;
@@ -36,9 +39,11 @@ for (let i of window.location.pathname.split("/").slice(1, -1)) {
 }
 settings.domain = window.location.protocol + "//" + window.location.host + t;
 var config, mdcontent;
+blogging_info("init Blogging ...");
 fetch("config.json")
   .then((res) => {
     if (res.status >= 200 && res.status < 300) {
+      blogging_info("Load config");
       return res;
     } else {
       document.all[0].innerHTML =
@@ -52,10 +57,30 @@ fetch("config.json")
     settings.themeUrl =
       settings.domain + config.file.theme + config.theme + "/";
     settings.post = settings.domain + config.file.post;
-    for(i in config.comment.config){comment = config.comment.config[i]};
+    for (i in config.comment.config) {
+      comment = config.comment.config[i];
+    }
+  })
+  .then(function () {
+    blogging_info("Load Plugin who loadtime = init");
+    for (let i in config.plugins) {
+      if (config.plugins[i].loadtime == "init") {
+        blogging_info("Load "+config.plugins[i].name);
+        for (let b in config.plugins[i].depend) {
+          let a = document.createElement("script");
+          a.src = config.plugins[i].depend[b];
+          document.head.append(a);
+        }
+        let a = document.createElement("script");
+        a.src = config.plugins[i].script;
+        document.head.append(a);
+        setTimeout("markdownrender('1')",0.5);
+      }
+    }
   })
   .then(function () {
     if (settings.par === "url") {
+      blogging_info("Load post");
       settings.content = { url: decodeURIComponent(getpar(settings.par)) };
       fetch(settings.content.url)
         .then((res) => {
@@ -82,7 +107,7 @@ fetch("config.json")
             response: content,
           };
           settings.content.preview.mdcontent = marked(content);
-          return marked(content);
+          return markdownrender(content);
         })
         .then((mdcontent) => {
           fetch(settings.themeUrl + "html/" + "200.html")
@@ -98,6 +123,7 @@ fetch("config.json")
           return t.message;
         });
     } else if (settings.par === "p") {
+      blogging_info("Load post");
       settings.content = {
         url: decodeURIComponent(settings.post + getpar(settings.par) + ".md"),
       };
@@ -126,7 +152,7 @@ fetch("config.json")
             response: content,
           };
           settings.content.preview.mdcontent = marked(content);
-          return marked(content);
+          return markdownrender(content);
         })
         .then((mdcontent) => {
           fetch(settings.themeUrl + "html/" + "200.html")
@@ -142,6 +168,7 @@ fetch("config.json")
           return t.message;
         });
     } else if (settings.par === "page") {
+      blogging_info("geting page");
       settings.content = {
         url: settings.themeUrl + "html/" + getpar(settings.par) + ".html",
       };
@@ -173,5 +200,6 @@ fetch("config.json")
           document.write(content);
         });
     }
-  });
-console.log(settings);
+  }).then(function(){
+    blogging_info("rendering content");
+  })

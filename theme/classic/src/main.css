@@ -155,11 +155,12 @@ i {
 
 .post-info * {
   color: var(--white-text-darker);
-  font-size: 20px;
+  font-size: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   line-height: 15px;
+  padding: 0% 5%;
 }
 
 .arrow_forward::before {

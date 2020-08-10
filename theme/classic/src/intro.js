@@ -54,13 +54,41 @@ async function init_post_container() {
             '">Reading<i class="material-icons arrow_forward"></i></a></p></div>';
         }
         post_container = post_container + post.container;
+        document.getElementById("post").innerHTML = post_container;
+      })
+      .then(function () {
+        document.getElementsByClassName("none")[0].innerHTML = "";
       });
   }
   return post_container;
 }
 
+async function init_plugins() {
+  blogging_info("Load Plugin who loadtime = themerender");
+  for (let i in config.plugins) {
+    if (config.plugins[i].loadtime == "themerender") {
+      blogging_info("Load "+config.plugins[i].name+ " with defer enabled "+config.plugins[i].defer);
+      for (let b in config.plugins[i].depend){
+        let a = document.createElement("script");
+        a.src = config.plugins[i].depend[b];
+        await document.head.appendChild(a);
+      }
+      let a = document.createElement("script");
+      a.src = config.plugins[i].script;
+      if (config.plugins[i].defer){
+        a.defer = true;
+      }
+      document.head.append(a);
+      setTimeout(()=>{
+        blogging_info("plugins load finnsh");
+      },1)
+    }
+  }
+}
+
 function loadcomments() {
   if (config.comment.enable) {
+    blogging_info("Start load comment");
     for (x in comment.depend.js) {
       a = document.createElement("script");
       a.src = comment.depend.js[x];
@@ -73,17 +101,24 @@ function loadcomments() {
   }
 }
 
-add_pic = function () {
+function config_page() {
   var imgs = document.getElementsByTagName("img");
-  for (var i = 0; i < imgs.length; i++) {
+  for (let i = 0; i < imgs.length; i++) {
     imgs[i].loading = "lazy";
   }
+  let a = document.createElement("link");
+  a.rel = "shortcut icon";
+  a.href = config.theme_config.avatar;
+  document.head.append(a);
 };
 if (getpar("page")) {
+  init_plugins();config_page();
   init_post_container().then((content) => {
     document.getElementById("post").innerHTML = content;
   });
 } else {
   loadcomments();
+  init_plugins();
+  config_page();
 }
 document.getElementById("des").content = config.theme_config.introduction;

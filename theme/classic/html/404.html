@@ -28,6 +28,7 @@
     </span>
 </footer>
 <script>
+    blogging_info("Start show page");
     var debugtext = {
         FetchThing: settings.content.url,
         StatusCode: settings.content.status,
@@ -42,7 +43,7 @@
         document.getElementById("aboutme").innerHTML = "Copyright " + settings.date.getFullYear() + " " + config.theme_config.author + "'s Blog. All Rights Reserved.";
         //document.getElementById("bugcode").innerHTML = JSON.stringify(debugtext);
     }
-    console.log(debugtext);
+    
     document.getElementById("head").innerHTML = "<link rel='stylesheet' href='" + settings.themeUrl + "src/main-min.css'><title> 404 Not Found -- "+ config.theme_config.author +"'s Blog</title>"
 </script>
 

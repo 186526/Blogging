@@ -46,7 +46,18 @@
                 "https://cdn.jsdelivr.net/npm/marked@1.1.1/marked.min.js"
             ],
             "script": "https://cdn.jsdelivr.net/gh/186526/jsdelivr@1.1.1/render-engine-marked.js",
-            "loadtime": "init"
+            "loadtime": "init",
+            "defer": false
+        },
+        {
+            "name": "Flying_Pages",
+            "id": "preload-flying-pages",
+            "depend": [
+                "https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"
+            ],
+            "loadtime": "themerender",
+            "script": "src/js/flying-pages.js",
+            "defer": true
         }
     ]
 }

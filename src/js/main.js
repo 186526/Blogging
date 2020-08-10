@@ -4,8 +4,9 @@
  * Author: 186526
  * Build with Love & bug
  */
-function blogging_info(t) {
-  console.log("%c Blogging %c "+t+" %c", "background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px; color:#fff", "background:#41b883 ; padding: 1px; border-radius: 0 3px 3px 0; color: #fff" ,"background: transparent");
+function blogging_info(t){console.log("%c Blogging %c "+t+" %c", "background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px; color:#fff", "background:#41b883 ; padding: 1px; border-radius: 0 3px 3px 0; color: #fff" ,"background: transparent");}
+function markdownrender(t) {
+  return marked(t);
 }
 function getpar(r) {
   for (
@@ -65,7 +66,7 @@ fetch("config.json")
     blogging_info("Load Plugin who loadtime = init");
     for (let i in config.plugins) {
       if (config.plugins[i].loadtime == "init") {
-        blogging_info("Load "+config.plugins[i].name);
+        blogging_info("Load "+config.plugins[i].name+ " with defer enabled "+config.plugins[i].defer);
         for (let b in config.plugins[i].depend) {
           let a = document.createElement("script");
           a.src = config.plugins[i].depend[b];
@@ -73,10 +74,15 @@ fetch("config.json")
         }
         let a = document.createElement("script");
         a.src = config.plugins[i].script;
+        if (config.plugins[i].defer){
+          a.defer = true;
+        }
         document.head.append(a);
-        setTimeout("markdownrender('1')",0.5);
       }
     }
+    setTimeout(() => {
+      blogging_info("Plugins load finnsh");
+    },1);
   })
   .then(function () {
     if (settings.par === "url") {

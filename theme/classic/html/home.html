@@ -42,6 +42,7 @@
     </div>
 </body>
 <script>
+    blogging_info("Start show page");
     var debugtext = {
         FetchThing: settings.content.url,
         StatusCode: settings.content.status,
@@ -56,7 +57,7 @@
         document.getElementById("aboutme").innerHTML = "Copyright " + settings.date.getFullYear() + " <a class='hoverlink' href=" + settings.domain + ">" + config.theme_config.author + "'s Blog. </a>All Rights Reserved.";
         document.getElementById("head").innerHTML = "<link rel='stylesheet' href='" + settings.themeUrl + "src/main-min.css'><title> Home -- " + config.theme_config.author + "'s Blog</title>";
     }
-    console.log(debugtext);
+    
 </script>
 
 </html>

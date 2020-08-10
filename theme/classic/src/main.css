@@ -163,6 +163,17 @@ i {
   padding: 0% 5%;
 }
 
+.post-info img {
+  padding: 0%;
+}
+
+.post-info table ,.post-info table *{
+  padding: 0%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .arrow_forward::before {
   content: "arrow_forward";
 }
@@ -241,6 +252,10 @@ table {
   display: none;
 }
 
+.v p {
+  font-size: 20px;
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     color: var(--dark-text);
@@ -303,6 +318,18 @@ table {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+  .post-container h1 {
+    font-size: 30px;
+  }
+  p {
+    font-size: 20px;
+  }
+  .v h1{
+    font-size: 25px;
+  }
+  .v p{
+    font-size: 18px;
   }
 }
 

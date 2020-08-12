@@ -56,8 +56,18 @@
                 "https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"
             ],
             "loadtime": "themerender",
-            "script": "src/js/flying-pages.js",
+            "script": "src/js/plugins/flying-pages.js",
             "defer": true
+        },
+        {
+            "name": "hightlight_js",
+            "id": "code-hightlight-js",
+            "depend": [
+                "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/highlight.min.js"
+            ],
+            "loadtime": "themerender",
+            "script": "src/js/plugins/code-hightlight.js",
+            "defer": false
         }
     ]
 }

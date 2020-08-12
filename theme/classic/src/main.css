@@ -14,6 +14,7 @@
   --white-background-darker: #efefef;
   --white-text-darker: #626262;
   line-height: 150%;
+  word-wrap: break-word;
 }
 
 .hoverlink:hover {
@@ -108,10 +109,10 @@ pre {
   background-color: var(--white-background-darker);
 }
 
-code {
+code , code *{
   white-space: pre-wrap;
   overflow: auto;
-  font-family: Sarasa Mono SC, Cascadia Code, Fira Code, Menlo, Consolas, monaco,
+  font-family: "JetBrains Mono",Fira Code, Sarasa Mono SC, Cascadia Code, Menlo, Consolas, monaco,
     monospace;
 }
 
@@ -267,6 +268,10 @@ table {
   pre {
     border: 2px solid var(--dark-background-darker);
     background-color: var(--dark-background-darker);
+  }
+  .hljs{
+    background: var(--dark-background-darker);
+    color: var(--dark-text);
   }
   .post-container {
     border: 2px solid var(--dark-background-darker);

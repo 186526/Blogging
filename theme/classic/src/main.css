@@ -1,4 +1,19 @@
 @import url("https://fonts.geekzu.org/icon?family=Material+Icons");
+@font-face {
+  src: local("JetBrains Mono"), local("Fira Code"), local("等距更纱黑体 SC"),
+    local("Sarasa Mono SC"),
+    url("https://cdn.jsdelivr.net/gh/186526/jsdelivr@1.1.3/static/JetBrainsMono-Medium.woff2");
+  font-family: "JetBrains Mono";
+  font-display: swap;
+}
+@font-face {
+  src: local("PingFang SC"), local("更纱黑体 UI SC"), local("Sarasa UI SC"),
+    /*local("MI Lan Pro VF"),*/
+    url("https://cdn.jsdelivr.net/gh/186526/jsdelivr@1.1.3/sarasa-ui-sc-regular.woff2");
+  font-family: "Sarasa UI SC";
+  font-display: swap;
+  font-weight: normal;
+}
 * {
   padding: 0;
   margin: 0;
@@ -99,7 +114,6 @@ footer {
 }
 
 pre {
-  white-space: pre-wrap;
   overflow: auto;
   margin-top: 5%;
   margin-bottom: 3%;
@@ -109,11 +123,12 @@ pre {
   background-color: var(--white-background-darker);
 }
 
-code , code *{
-  white-space: pre-wrap;
-  overflow: auto;
-  font-family: "JetBrains Mono",Fira Code, Sarasa Mono SC, Cascadia Code, Menlo, Consolas, monaco,
-    monospace;
+code,
+code * {
+  overflow-y: hidden;
+  overflow-x: scroll;
+  font-family: "JetBrains Mono", Fira Code, Sarasa Mono SC, Cascadia Code, Menlo,
+    Consolas, monaco, monospace;
 }
 
 .post-container {
@@ -168,7 +183,8 @@ i {
   padding: 0%;
 }
 
-.post-info table ,.post-info table *{
+.post-info table,
+.post-info table * {
   padding: 0%;
   white-space: nowrap;
   overflow: hidden;
@@ -257,6 +273,24 @@ table {
   font-size: 20px;
 }
 
+blockquote {
+  margin: 1em 3em 1em 2em;
+  padding-left: 1em;
+  border-left: 4px solid rgba(0, 0, 0, 0.12);
+}
+
+blockquote:last-child{
+  margin-bottom:0;
+}
+
+blockquote p{
+  font-size: 20px;
+}
+
+blockquote footer {
+  margin-top:1%;
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     color: var(--dark-text);
@@ -269,7 +303,7 @@ table {
     border: 2px solid var(--dark-background-darker);
     background-color: var(--dark-background-darker);
   }
-  .hljs{
+  .hljs {
     background: var(--dark-background-darker);
     color: var(--dark-text);
   }
@@ -284,14 +318,21 @@ table {
   .post-container p {
     color: var(--dark-text-darker);
   }
+  blockquote {
+    border-left-color: rgba(255, 255, 255, 0.12);
+  }
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1165px) {
   #blogginginfo {
     display: none;
   }
+  .siteinfo{
+    text-align:center;
+  }
   #aboutme {
-    float: right;
+    float:none;
+    margin:0 auto;
   }
 }
 
@@ -330,10 +371,10 @@ table {
   p {
     font-size: 20px;
   }
-  .v h1{
+  .v h1 {
     font-size: 25px;
   }
-  .v p{
+  .v p {
     font-size: 18px;
   }
 }

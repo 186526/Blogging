@@ -1,24 +1,9 @@
 @import url("https://fonts.geekzu.org/icon?family=Material+Icons");
-@font-face {
-  src: local("JetBrains Mono"), local("Fira Code"), local("等距更纱黑体 SC"),
-    local("Sarasa Mono SC"),
-    url("https://cdn.jsdelivr.net/gh/186526/jsdelivr@1.1.3/static/JetBrainsMono-Medium.woff2");
-  font-family: "JetBrains Mono";
-  font-display: swap;
-}
-@font-face {
-  src: local("PingFang SC"), local("更纱黑体 UI SC"), local("Sarasa UI SC"),
-    /*local("MI Lan Pro VF"),*/
-    url("https://cdn.jsdelivr.net/gh/186526/jsdelivr@1.1.3/sarasa-ui-sc-regular.woff2");
-  font-family: "Sarasa UI SC";
-  font-display: swap;
-  font-weight: normal;
-}
+@import url('https://fonts.geekzu.org/css2?family=Fira+Code&family=Noto+Sans+SC&display=swap');
 * {
   padding: 0;
   margin: 0;
-  font-family: "PingFang SC", "Sarasa UI SC", "Helvetica Neue",
-    "Microsoft YaHei New", STHeiti Light, sans-serif;
+  font-family: "PingFang SC", "更纱黑体 UI SC" ,"Sarasa UI SC", "Noto Sans SC", sans-serif;
   --dark-text: #efefef;
   --dark-background: #000;
   --dark-background-darker: #111;

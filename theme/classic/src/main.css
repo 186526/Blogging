@@ -362,6 +362,9 @@ blockquote footer {
   .v p {
     font-size: 18px;
   }
+  blockquote {
+    margin: 1em;
+  }
 }
 
 @media screen and (max-width: 480px) {

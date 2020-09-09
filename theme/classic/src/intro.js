@@ -5,7 +5,8 @@ document.getElementById("intro-text-intro").innerHTML =
   "—— " + config.theme_config.introduction;
 
 async function get_posts_content(post_url, x) {
-  let post_container = "", post = {};
+  let post_container = "",
+    post = {};
   await fetch(post_url.url)
     .then((response) => response.text())
     .then((content) => {
@@ -37,6 +38,8 @@ async function get_posts_content(post_url, x) {
           post.preview.title +
           '</h1><div class="post-info">' +
           post.preview.mdcontent +
+          '</div><div class="post-time"><i class="material-icons date_range"></i>' +
+          loadtime(config.post[x].url).posttime +
           '</div><p><a href="?p=' +
           config.post[x].url +
           '">Reading<i class="material-icons arrow_forward"></i></a></p></div>';
@@ -46,7 +49,9 @@ async function get_posts_content(post_url, x) {
           post.preview.title +
           '</h1><p class="post-intro">' +
           post.preview.intro +
-          '</p><p><a href="?p=' +
+          '</p><div class="post-time"><i class="material-icons date_range"></i>' +
+          loadtime(config.post[x].url).posttime +
+          '</div><p><a href="?p=' +
           config.post[x].url +
           '">Reading<i class="material-icons arrow_forward"></i></a></p></div>';
       }
@@ -75,7 +80,12 @@ async function init_plugins() {
   blogging_info("Load Plugin who loadtime = themerender");
   for (let i in config.plugins) {
     if (config.plugins[i].loadtime === "themerender") {
-      blogging_info("Load " + config.plugins[i].name + " with defer enabled " + config.plugins[i].defer);
+      blogging_info(
+        "Load " +
+          config.plugins[i].name +
+          " with defer enabled " +
+          config.plugins[i].defer
+      );
       for (let b in config.plugins[i].depend) {
         let a = document.createElement("script");
         a.src = config.plugins[i].depend[b];
@@ -90,7 +100,7 @@ async function init_plugins() {
     }
   }
   setTimeout(() => {
-    blogging_info("plugins load finnsh");
+    blogging_info("plugins load finish");
   }, 1);
 }
 
@@ -109,6 +119,28 @@ function loadcomments() {
   }
 }
 
+var loadtime = (posturl) => {
+  for (let x in config.post) {
+    if (posturl === config.post[x].url) {
+      return {
+        postunixtimestamp: Math.round(config.post[x].time / 1000),
+        posttime: new Date(Math.round(config.post[x].time)).toLocaleString(),
+        nowtime: new Date().toLocaleString(),
+      };
+    }
+  }
+};
+
+var gettime = (e) => {
+  let a = document.createElement("div");
+  let icon = document.createElement("i");
+  icon.classList = "material-icons date_range";
+  a.append(icon);
+  a.classList = "posttime";
+  a.innerHTML += loadtime(e).posttime;
+  return a;
+};
+
 function config_page() {
   var imgs = document.getElementsByTagName("img");
   for (let i = 0; i < imgs.length; i++) {
@@ -120,24 +152,36 @@ function config_page() {
   document.head.append(a);
 }
 
+async function init_post() {
+  document.getElementById("func").append(gettime("index"));
+}
+
 if (getpar("page")) {
-  init_plugins(); config_page();
+  init_plugins();
+  config_page();
   init_post_container();
 } else {
   let finished = true;
-  if(finished && document.getElementById("comments").getBoundingClientRect().top<=1300){
+  if (
+    finished &&
+    document.getElementById("comments").getBoundingClientRect().top <= 1300
+  ) {
     loadcomments();
     finished = false;
-    document.onscroll = function(){};
+    document.onscroll = function () {};
   }
-  document.onscroll = function(){
-    if(finished && document.getElementById("comments").getBoundingClientRect().top<=1300){
+  document.onscroll = function () {
+    if (
+      finished &&
+      document.getElementById("comments").getBoundingClientRect().top <= 1300
+    ) {
       loadcomments();
       finished = false;
-      document.onscroll = function(){};
+      document.onscroll = function () {};
     }
   };
   init_plugins();
   config_page();
+  init_post();
 }
 document.getElementById("des").content = config.theme_config.introduction;

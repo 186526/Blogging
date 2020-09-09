@@ -12,7 +12,11 @@
     "post": [
         {
             "url": "index",
-            "introduction": "Blogging is a simple and light-weight Blog Platform"
+            "introduction": "Blogging is a simple and light-weight Blog Platform",
+            "tags": [
+                "test","just a test"
+            ],
+            "time": 1599319950426
         }
     ],
     "comment":{
@@ -45,7 +49,7 @@
             "depend": [
                 "https://cdn.jsdelivr.net/npm/marked@1.1.1/marked.min.js"
             ],
-            "script": "https://cdn.jsdelivr.net/gh/186526/jsdelivr@1.1.1/render-engine-marked.js",
+            "script": "src/js/plugins/render-engine-marked-min.js",
             "loadtime": "init",
             "defer": false
         },

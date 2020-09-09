@@ -5,8 +5,15 @@
  * Build with Love & bug
  */
 function blogging_info(t){console.log("%c Blogging %c "+t+" %c", "background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px; color:#fff", "background:#41b883 ; padding: 1px; border-radius: 0 3px 3px 0; color: #fff" ,"background: transparent");}
-function markdownrender(t) {
-  return marked(t);
+function whenAvailable(name, callback) {
+  var interval = 100; // ms
+  window.setTimeout(function () {
+    if (window[name]) {
+      callback(window[name]);
+    } else {
+      window.setTimeout(arguments.callee, interval);
+    }
+  }, interval);
 }
 function getpar(r) {
   for (
@@ -62,11 +69,26 @@ fetch("config.json")
       comment = config.comment.config[i];
     }
   })
+  .then((e) => {
+    a = document.createElement("link");
+    a.rel = "prefetch";
+    if (settings.par === "page") {
+      a.href = settings.themeUrl + "html/" + getpar(settings.par) + ".html";
+    } else if (settings.par === "url" || settings.par === "p") {
+      a.href = settings.themeUrl + "html/200.html";
+    }
+    document.head.append(a);
+  })
   .then(function () {
     blogging_info("Load Plugin who loadtime = init");
     for (let i in config.plugins) {
       if (config.plugins[i].loadtime == "init") {
-        blogging_info("Load "+config.plugins[i].name+ " with defer enabled "+config.plugins[i].defer);
+        blogging_info(
+          "Load " +
+            config.plugins[i].name +
+            " with defer enabled " +
+            config.plugins[i].defer
+        );
         for (let b in config.plugins[i].depend) {
           let a = document.createElement("script");
           a.src = config.plugins[i].depend[b];
@@ -74,15 +96,17 @@ fetch("config.json")
         }
         let a = document.createElement("script");
         a.src = config.plugins[i].script;
-        if (config.plugins[i].defer){
+        if (config.plugins[i].defer) {
           a.defer = true;
         }
         document.head.append(a);
       }
     }
-    setTimeout(() => {
-      blogging_info("Plugins load finnsh");
-    },1);
+  }).then(()=>{
+    whenAvailable("markdownrender", () => {
+      blogging_info("Markdown Render Load finish");
+      return 114514;
+    });
   })
   .then(function () {
     if (settings.par === "url") {
@@ -206,6 +230,7 @@ fetch("config.json")
           document.write(content);
         });
     }
-  }).then(function(){
-    blogging_info("rendering content");
   })
+  .then(function () {
+    blogging_info("rendering content");
+  });

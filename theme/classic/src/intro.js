@@ -82,9 +82,9 @@ async function init_plugins() {
     if (config.plugins[i].loadtime === "themerender") {
       blogging_info(
         "Load " +
-          config.plugins[i].name +
-          " with defer enabled " +
-          config.plugins[i].defer
+        config.plugins[i].name +
+        " with defer enabled " +
+        config.plugins[i].defer
       );
       for (let b in config.plugins[i].depend) {
         let a = document.createElement("script");
@@ -153,8 +153,46 @@ function config_page() {
 }
 
 async function init_post() {
-  document.getElementById("func").append(gettime("index"));
+  document.getElementById("func").append(gettime(getpar("p")));
+  //document.getElementById("func").append(createtags(getpar("p")));
 }
+
+var createtags = (url) => {
+  let tags = gettags(url);
+  let tags_tags = [];
+  let a = document.createElement("div");
+  a.classList = "tags-container";
+  for (let i in tags) {
+    tags_tags[i] = document.createElement("a");
+    tags_tags[i].classList = "tags-tags";
+    tags_tags[i].innerHTML = tags[i];
+    tags_tags[i].href = "?page=tags&tag=" + tags[i];
+    a.append(tags_tags[i]);
+  }
+  return a;
+};
+
+var checktags = (tags) => {
+  let x = [];
+  for (let y in tags) {
+    for (let i in config.post) {
+      if (gettags(config.post[i].url).toString().match(tags[y]) === null) {
+        continue;
+      } else {
+        x.push(config.post[i].url);
+      }
+    }
+  }
+  return x;
+};
+
+var gettags = (url) => {
+  for (let i in config.post) {
+    if (url === config.post[i].url) {
+      return config.post[i].tags;
+    }
+  }
+};
 
 if (getpar("page")) {
   init_plugins();
@@ -168,7 +206,7 @@ if (getpar("page")) {
   ) {
     loadcomments();
     finished = false;
-    document.onscroll = function () {};
+    document.onscroll = function () { };
   }
   document.onscroll = function () {
     if (
@@ -177,7 +215,7 @@ if (getpar("page")) {
     ) {
       loadcomments();
       finished = false;
-      document.onscroll = function () {};
+      document.onscroll = function () { };
     }
   };
   init_plugins();

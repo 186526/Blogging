@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Noto+Sans+SC&family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&Fira+Code&family=Noto+Sans+SC&family=Roboto&display=swap");
 * {
   padding: 0;
   margin: 0;
-  font-family: "PingFang SC", "更纱黑体 UI SC" ,"Sarasa UI SC","Roboto" ,"Noto Sans SC", sans-serif;
+  font-family: "PingFang SC", "更纱黑体 UI SC", "Sarasa UI SC", "Roboto",
+    "Noto Sans SC", sans-serif;
   --dark-text: #efefef;
   --dark-background: #000;
   --dark-background-darker: #111;
@@ -23,6 +24,11 @@
 
 .hoverlink {
   color: var(--white-text-darker);
+}
+
+h1, h2, h3, h4,h5,h6{
+  font-family: "Montserrat","PingFang SC", "更纱黑体 UI SC", "Sarasa UI SC", "Roboto",
+    "Noto Sans SC", sans-serif;
 }
 
 h1 {
@@ -268,31 +274,40 @@ blockquote {
   border-left: 4px solid rgba(0, 0, 0, 0.12);
 }
 
-blockquote:last-child{
-  margin-bottom:0;
+blockquote:last-child {
+  margin-bottom: 0;
 }
 
-blockquote p{
+blockquote p {
   font-size: 20px;
 }
 
 blockquote footer {
-  margin-top:1%;
+  margin-top: 1%;
 }
 
 .posttime {
-  font-size:10px;
+  font-size: 10px;
   color: var(--white-text-darker);
 }
 
 .post-time {
-  font-size:10px;
+  font-size: 10px;
   color: var(--white-text-darker);
   padding: 0 4%;
 }
 
 #func {
   margin-top: 1%;
+}
+
+tags-container {
+  max-width: 2%;
+  max-height: import;
+}
+
+tags-container {
+  max-width: 2%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -319,7 +334,9 @@ blockquote footer {
     color: var(--dark-text-darker);
   }
   .post-info *,
-  .post-container p ,.posttime,.post-time{
+  .post-container p,
+  .posttime,
+  .post-time {
     color: var(--dark-text-darker);
   }
   blockquote {
@@ -331,12 +348,12 @@ blockquote footer {
   #blogginginfo {
     display: none;
   }
-  .siteinfo{
-    text-align:center;
+  .siteinfo {
+    text-align: center;
   }
   #aboutme {
-    float:none;
-    margin:0 auto;
+    float: none;
+    margin: 0 auto;
   }
 }
 
@@ -364,7 +381,7 @@ blockquote footer {
   .intro h1 {
     display: block;
   }
-  .post-container .post-intro .post-time{
+  .post-container .post-intro .post-time {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

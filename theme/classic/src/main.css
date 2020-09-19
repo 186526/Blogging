@@ -155,31 +155,14 @@ code * {
   padding: 0% 1%;
 }
 
+.i-1{
+  vertical-align: middle;
+  padding-left: 0.2%;
+}
+
 i {
   vertical-align: middle;
   padding: 0% 1%;
-}
-
-.post-info * {
-  color: var(--white-text-darker);
-  font-size: 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 15px;
-  padding: 0% 5%;
-}
-
-.post-info img {
-  padding: 0%;
-}
-
-.post-info table,
-.post-info table * {
-  padding: 0%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .arrow_forward::before {
@@ -212,6 +195,10 @@ i {
 .head .h3 {
   font-size: 30px;
   white-space: nowrap;
+}
+
+.margin-bottom {
+  margin-bottom: 3%;
 }
 
 .intro {
@@ -297,17 +284,28 @@ blockquote footer {
   padding: 0 4%;
 }
 
+.post-tags{
+  padding: 3% 3% 0%;
+}
+
 #func {
   margin-top: 1%;
 }
 
-tags-container {
-  max-width: 2%;
-  max-height: import;
+.tags-container {
+    margin-top:3%;
+    margin-left: 1%;
+  max-height: 2%;
 }
 
-tags-container {
-  max-width: 2%;
+.tags-tags{
+    border : 2px solid var(--white-background-darker);
+    border-radius: 10px;
+    padding:0.5%;
+    margin-right: 3%;
+    background-color: var(--white-background-darker);
+    word-wrap: break-word;
+    word-break: break-all; 
 }
 
 @media (prefers-color-scheme: dark) {
@@ -341,6 +339,10 @@ tags-container {
   }
   blockquote {
     border-left-color: rgba(255, 255, 255, 0.12);
+  }
+  .tags-tags{
+      background-color: var(--dark-background-darker);
+      border : 2px solid var(--dark-background-darker);
   }
 }
 

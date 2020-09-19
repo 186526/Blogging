@@ -34,15 +34,13 @@ async function get_posts_content(post_url, x) {
     .then(function () {
       if (window.location.search === "?page=archive") {
         post.container =
-          '<div class="post-container"><h1>' +
-          post.preview.title +
-          '</h1><div class="post-info">' +
-          post.preview.mdcontent +
-          '</div><div class="post-time"><i class="material-icons date_range"></i>' +
-          loadtime(config.post[x].url).posttime +
-          '</div><p><a href="?p=' +
+          '<div class="post-container"><a href="?p=' +
           config.post[x].url +
-          '">Reading<i class="material-icons arrow_forward"></i></a></p></div>';
+          '"><h1>' +
+          post.preview.title +
+          '</h1></a><div class="post-time margin-bottom"><i class="material-icons date_range"></i>' +
+          loadtime(config.post[x].url).posttime +
+          '</div></div>';
       } else {
         post.container =
           '<div class="post-container"><h1>' +
@@ -51,7 +49,7 @@ async function get_posts_content(post_url, x) {
           post.preview.intro +
           '</p><div class="post-time"><i class="material-icons date_range"></i>' +
           loadtime(config.post[x].url).posttime +
-          '</div><p><a href="?p=' +
+          '</div><div class="post-tags">' + createtags(config.post[x].url).innerHTML + '</div><p><a href="?p=' +
           config.post[x].url +
           '">Reading<i class="material-icons arrow_forward"></i></a></p></div>';
       }
@@ -75,6 +73,34 @@ async function init_post_container() {
   }
   return post_container;
 }
+
+var search = async () => {
+  var post_container = "";
+  document.getElementById("tag").append(createtag([decodeURI(getpar("tag"))]));
+  if (!getpar("tag")) {
+    window.location.href = settings.domain;
+  }
+  try {
+    checktags([decodeURI(getpar("tag"))]);
+  } catch {
+    document.querySelector("#tags").innerHTML = "<h1>Tags Not Found</h1>";
+  }
+  if (checktags([decodeURI(getpar("tag"))]) == false) {
+    document.querySelector("#tags").innerHTML = "<h1>Tags Not Found</h1>";
+  }
+  let a = checktags([decodeURI(getpar("tag"))]);
+  for (let x = 0; x < config.post.length; x++) {
+    for (let y in a) {
+      if (config.post[x].url === a[y]) {
+        const post = {};
+        post.url = settings.post + config.post[x].url + ".md";
+        post_container = post_container + get_posts_content(post, x);
+        break;
+      }
+    }
+  }
+  return post_container;
+};
 
 async function init_plugins() {
   blogging_info("Load Plugin who loadtime = themerender");
@@ -154,18 +180,22 @@ function config_page() {
 
 async function init_post() {
   document.getElementById("func").append(gettime(getpar("p")));
-  //document.getElementById("func").append(createtags(getpar("p")));
+  document.getElementById("func").append(createtags(getpar("p")));
 }
 
 var createtags = (url) => {
   let tags = gettags(url);
+  return createtag(tags);
+};
+
+var createtag = (tags) => {
   let tags_tags = [];
   let a = document.createElement("div");
   a.classList = "tags-container";
   for (let i in tags) {
     tags_tags[i] = document.createElement("a");
     tags_tags[i].classList = "tags-tags";
-    tags_tags[i].innerHTML = tags[i];
+    tags_tags[i].innerHTML = "<i class='material-icons i-1'>label</i>" + tags[i];
     tags_tags[i].href = "?page=tags&tag=" + tags[i];
     a.append(tags_tags[i]);
   }
@@ -179,7 +209,11 @@ var checktags = (tags) => {
       if (gettags(config.post[i].url).toString().match(tags[y]) === null) {
         continue;
       } else {
-        x.push(config.post[i].url);
+        for (let z in gettags(config.post[i].url)) {
+          if (gettags(config.post[i].url)[z] === tags[y]) {
+            x.push(config.post[i].url);
+          }
+        }
       }
     }
   }
@@ -194,11 +228,11 @@ var gettags = (url) => {
   }
 };
 
-if (getpar("page")) {
+if (getpar("page") != "tags" && getpar("page")) {
   init_plugins();
   config_page();
   init_post_container();
-} else {
+} else if (getpar("p")) {
   let finished = true;
   if (
     finished &&
@@ -221,5 +255,9 @@ if (getpar("page")) {
   init_plugins();
   config_page();
   init_post();
+} else if (getpar("page") === "tags") {
+  init_plugins();
+  config_page();
+  search();
 }
 document.getElementById("des").content = config.theme_config.introduction;

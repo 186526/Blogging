@@ -60,7 +60,7 @@ fetch("config.json")
     }
   })
   .then((res) => res.json())
-  .then(function (resconfig) {
+  .then((resconfig)=>{
     config = resconfig;
     settings.themeUrl =
       settings.domain + config.file.theme + config.theme + "/";
@@ -79,7 +79,7 @@ fetch("config.json")
     }
     document.head.append(a);
   })
-  .then(function () {
+  .then(()=>{
     blogging_info("Load Plugin who loadtime = init");
     for (let i in config.plugins) {
       if (config.plugins[i].loadtime == "init") {
@@ -147,7 +147,7 @@ fetch("config.json")
               document.write(text);
             });
         })
-        .catch(function (t) {
+        .catch(t=>{
           settings.content.preview.mdcontent = t.message;
           document.write(t.message);
           return t.message;
@@ -231,6 +231,6 @@ fetch("config.json")
         });
     }
   })
-  .then(function () {
+  .then(()=>{
     blogging_info("rendering content");
   });

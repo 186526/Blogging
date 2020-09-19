@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta id="des" name="description">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <script id="intro_js"></script>
+    <div id="head">
+        <link rel='shortcut icon' id="favicon" href="favicon.ico">
+    </div>
+</head>
+
+<body>
+    <div class="none">
+    </div>
+    <div id="container">
+        <span class="intro">
+            <img id="avatar" alt="Avatar">
+            <span>
+                <h1 id="intro-text-title"></h1>
+                <h1 id="intro-text-intro"></h1>
+            </span>
+        </span>
+        <p><a onclick="window.history.back(-1);" style="vertical-align: middle;"><i class="material-icons arrow_back"
+            style="vertical-align: middle;"></i>Back</a><div id="func"></div></p>
+        <div id="content">
+            <div class="tags" id="tags">
+                <div id="tag">
+                </div>
+                <div id="post">
+                </div>
+            </div>
+        </div>
+        <footer>
+            <span class="siteinfo">
+                <span id="blogginginfo">
+                    Powered By <a class="hoverlink" href="https://github.com/186526/blogging">Blogging</a>, a
+                    Lightweight Blog Platform.</span>
+                <span id="aboutme"> </span>
+            </span>
+        </footer>
+    </div>
+</body>
+<script>
+    blogging_info("Start show page");
+    var debugtext = {
+        FetchThing: settings.content.url,
+        StatusCode: settings.content.status,
+        success: settings.content.success,
+        content: settings.content.preview,
+    };
+    if (getpar("debug")) {
+        document.all[0].innerHTML = "<pre><xmp>" + JSON.stringify(debugtext) + "</xmp></pre>";
+        console.log("Debug ON");
+    } else {
+        document.getElementById("intro_js").src = settings.themeUrl + "src/intro-min.js"
+        document.getElementById("aboutme").innerHTML = "Copyright " + settings.date.getFullYear() + " <a class='hoverlink' href=" + settings.domain + ">" + config.theme_config.author + "'s Blog. </a>All Rights Reserved.";
+        document.getElementById("head").innerHTML = "<link rel='stylesheet' href='" + settings.themeUrl + "src/main-min.css'><title> Home -- " + config.theme_config.author + "'s Blog</title>";
+    }
+    
+</script>
+
+</html>
